@@ -1,0 +1,21 @@
+[PTQ] backend = onednn
+[PTQ] qconfig = QConfig(activation=functools.partial(<class 'torch.ao.quantization.observer.HistogramObserver'>, reduce_range=False){}, weight=functools.partial(<class 'torch.ao.quantization.observer.PerChannelMinMaxObserver'>, dtype=torch.qint8, qscheme=torch.per_channel_symmetric){})
+[calibration] batch 5/20 (500 images)
+[calibration] batch 10/20 (1000 images)
+[calibration] batch 15/20 (1500 images)
+[calibration] batch 20/20 (2000 images)
+[calibration] done: 2000 images in 6.8s
+BasicBlock(
+  (conv1): QuantizedConvReLU2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.006427675019949675, zero_point=0, padding=(1, 1))
+  (bn1): Identity()
+  (relu1): Identity()
+  (conv2): QuantizedConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.01564864069223404, zero_point=147, padding=(1, 1))
+  (bn2): Identity()
+  (relu2): ReLU(inplace=True)
+  (skip_add): QFunctional(
+    scale=0.01815776526927948, zero_point=120
+    (activation_post_process): Identity()
+  )
+)
+[PTQ] saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_ptq_int8.pt (10.79 MB)  vs FP32 42.70 MB
+[PTQ] INT8 test accuracy (reloaded TorchScript) = 93.75%

@@ -1,0 +1,44 @@
+[QAT] fake-quant inserted, example block:
+ BasicBlock(
+  (conv1): ConvBnReLU2d(
+    64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+    (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (weight_fake_quant): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.qint8, quant_min=-128, quant_max=127, qscheme=torch.per_channel_symmetric, reduce_range=False
+      (activation_post_process): MovingAveragePerChannelMinMaxObserver(min_val=tensor([]), max_val=tensor([]))
+    )
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=255, qscheme=torch.per_tensor_affine, reduce_range=False
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+  (bn1): Identity()
+  (relu1): Identity()
+  (conv2): ConvBn2d(
+    64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+    (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (weight_fake_quant): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.qint8, quant_min=-128, quant_max=127, qscheme=torch.per_channel_symmetric, reduce_range=False
+      (activation_post_process): MovingAveragePerChannelMinMaxObserver(min_val=tensor([]), max_val=tensor([]))
+    )
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=255, qscheme=torch.per_tensor_affine, reduce_range=False
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+  (bn2): Identity()
+  (relu2): ReLU(inplace=True)
+  (skip_add): FloatFunctional(
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=255, qscheme=torch.per_tensor_affine, reduce_range=False
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+)
+[QAT] epoch 1/5 | loss 0.5191 | train 99.45% | fake-quant test 93.86% | 30.1s
+[QAT] epoch 2/5 | loss 0.5175 | train 99.51% | fake-quant test 93.75% | 25.3s
+[QAT] epoch 3/5 | loss 0.5126 | train 99.66% | fake-quant test 93.60% | 26.8s
+[QAT] epoch 4/5 | loss 0.5110 | train 99.71% | fake-quant test 93.88% | 25.1s
+[QAT] epoch 5/5 | loss 0.5107 | train 99.73% | fake-quant test 93.84% | 25.0s
+[QAT] saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_qat_int8.pt (10.79 MB)
+[QAT] INT8 test accuracy (reloaded TorchScript) = 93.83%

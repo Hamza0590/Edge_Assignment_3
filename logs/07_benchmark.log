@@ -1,0 +1,22 @@
+CPU: AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD | threads: 8 | torch 2.10.0+cu128 | quant engine onednn
+
+=== Q1: quantization ===
+  FP32 baseline        acc  93.73% | size  42.70 MB | bs1   5.92 ms |    438.1 img/s
+  PTQ INT8             acc  93.75% | size  10.79 MB | bs1   1.59 ms |   2104.5 img/s
+  QAT INT8             acc  93.83% | size  10.79 MB | bs1   1.55 ms |   2118.9 img/s
+
+=== Q2: pruning ===
+  Unstructured-pruned  acc  93.85% | size  42.70 MB | bs1   5.94 ms |    444.1 img/s
+  Structured-pruned    acc  93.19% | size  21.73 MB | bs1   3.61 ms |    665.0 img/s
+
+=== All five models ===
+plot -> D:\Uni\SEM 7\Edge\Assignment\3\results\benchmark_plots.png
+
+              model  accuracy_pct  size_mb  compression_x  latency_bs1_ms  speedup_bs1_x  throughput_img_s  agreement_with_fp32_pct
+      FP32 baseline         93.73   42.701           1.00           5.922           1.00             438.1                   100.00
+           PTQ INT8         93.75   10.791           3.96           1.591           3.72            2104.5                    99.74
+           QAT INT8         93.83   10.791           3.96           1.550           3.82            2118.9                    99.10
+Unstructured-pruned         93.85   42.703           1.00           5.939           1.00             444.1                    97.74
+  Structured-pruned         93.19   21.735           1.96           3.613           1.64             665.0                    95.85
+
+CSV files written to D:\Uni\SEM 7\Edge\Assignment\3\results

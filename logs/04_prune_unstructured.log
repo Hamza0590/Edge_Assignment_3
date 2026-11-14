@@ -1,0 +1,19 @@
+[unstructured] baseline accuracy 93.73%
+[unstructured] per-iteration amount = 0.3313 of remaining weights
+[unstructured] iter 1: sparsity 33.13% | acc before FT 93.70%
+[unstructured it1] epoch   1/2 | loss 0.5179 | train 99.48% | test 93.35% | 14.6s
+[unstructured it1] epoch   2/2 | loss 0.5154 | train 99.58% | test 93.78% | 9.3s
+[unstructured] iter 2: sparsity 55.28% | acc before FT 93.57%
+[unstructured it2] epoch   1/2 | loss 0.5163 | train 99.52% | test 93.57% | 9.4s
+[unstructured it2] epoch   2/2 | loss 0.5134 | train 99.66% | test 93.53% | 9.3s
+[unstructured] iter 3: sparsity 70.09% | acc before FT 92.81%
+[unstructured it3] epoch   1/2 | loss 0.5156 | train 99.61% | test 93.55% | 9.3s
+[unstructured it3] epoch   2/2 | loss 0.5130 | train 99.68% | test 93.87% | 9.3s
+[unstructured] iter 4: sparsity 80.00% | acc before FT 90.27%
+[unstructured it4] epoch   1/5 | loss 0.5183 | train 99.62% | test 93.75% | 9.4s
+[unstructured it4] epoch   2/5 | loss 0.5150 | train 99.64% | test 93.76% | 9.3s
+[unstructured it4] epoch   3/5 | loss 0.5127 | train 99.72% | test 93.89% | 9.3s
+[unstructured it4] epoch   4/5 | loss 0.5104 | train 99.81% | test 93.93% | 9.3s
+[unstructured it4] epoch   5/5 | loss 0.5099 | train 99.82% | test 93.85% | 9.3s
+[unstructured] final global sparsity (conv+fc) 80.00% | params 11,173,962 non-zero 2,242,480
+[unstructured] dense ckpt 42.70 MB | sparse ckpt 10.19 MB

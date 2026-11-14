@@ -1,0 +1,15 @@
+saved 10 test images to D:\Uni\SEM 7\Edge\Assignment\3\samples
+
+  # ground truth fp32          ptq           qat           unstructured  structured   
+--------------------------------------------------------------------------------------
+  0 cat          cat           cat           cat           cat           cat          
+  1 ship         ship          ship          ship          ship          ship         
+  2 ship         ship          ship          ship          ship          ship         
+  3 airplane     airplane      airplane      airplane      airplane      airplane     
+  4 frog         frog          frog          frog          frog          frog         
+  5 frog         frog          frog          frog          frog          frog         
+  6 automobile   automobile    automobile    automobile    automobile    automobile   
+  7 frog         frog          frog          frog          frog          frog         
+  8 cat          cat           cat           cat           cat           cat          
+  9 automobile   automobile    automobile    automobile    automobile    automobile   
+(X = misclassified)

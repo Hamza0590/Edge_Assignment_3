@@ -1,0 +1,217 @@
+
+==== 0. Prepare CIFAR-10 ====
+[data] D:\Uni\SEM 7\Edge\Assignment\3\data\cifar10_train.npz already exists
+[data] D:\Uni\SEM 7\Edge\Assignment\3\data\cifar10_test.npz already exists
+---- 0. Prepare CIFAR-10 finished in 0s
+
+==== 1. Train FP32 baseline ====
+[baseline] device = cuda
+[baseline] epoch   1/30 | loss 1.6498 | train 46.35% | test 56.28% | 62.7s
+[baseline] epoch   2/30 | loss 1.2559 | train 66.39% | test 54.14% | 37.1s
+[baseline] epoch   3/30 | loss 1.0904 | train 74.17% | test 69.06% | 37.1s
+[baseline] epoch   4/30 | loss 0.9914 | train 78.94% | test 64.28% | 37.0s
+[baseline] epoch   5/30 | loss 0.9279 | train 81.93% | test 76.71% | 37.0s
+[baseline] epoch   6/30 | loss 0.8819 | train 83.85% | test 68.79% | 37.0s
+[baseline] epoch   7/30 | loss 0.8403 | train 85.51% | test 69.18% | 37.1s
+[baseline] epoch   8/30 | loss 0.8066 | train 86.95% | test 78.31% | 36.9s
+[baseline] epoch   9/30 | loss 0.7790 | train 88.18% | test 79.87% | 36.9s
+[baseline] epoch  10/30 | loss 0.7640 | train 88.76% | test 83.84% | 36.9s
+[baseline] epoch  11/30 | loss 0.7433 | train 89.75% | test 81.05% | 36.9s
+[baseline] epoch  12/30 | loss 0.7244 | train 90.51% | test 81.65% | 36.9s
+[baseline] epoch  13/30 | loss 0.7160 | train 90.77% | test 86.35% | 36.9s
+[baseline] epoch  14/30 | loss 0.6983 | train 91.52% | test 83.45% | 36.9s
+[baseline] epoch  15/30 | loss 0.6880 | train 91.89% | test 86.07% | 36.9s
+[baseline] epoch  16/30 | loss 0.6757 | train 92.48% | test 82.06% | 36.9s
+[baseline] epoch  17/30 | loss 0.6686 | train 92.68% | test 88.19% | 36.9s
+[baseline] epoch  18/30 | loss 0.6553 | train 93.33% | test 88.29% | 36.9s
+[baseline] epoch  19/30 | loss 0.6433 | train 93.82% | test 88.00% | 36.9s
+[baseline] epoch  20/30 | loss 0.6295 | train 94.52% | test 89.97% | 36.9s
+[baseline] epoch  21/30 | loss 0.6199 | train 94.88% | test 88.02% | 36.9s
+[baseline] epoch  22/30 | loss 0.6026 | train 95.64% | test 89.85% | 36.9s
+[baseline] epoch  23/30 | loss 0.5936 | train 96.05% | test 90.70% | 37.0s
+[baseline] epoch  24/30 | loss 0.5762 | train 96.83% | test 91.54% | 36.9s
+[baseline] epoch  25/30 | loss 0.5577 | train 97.77% | test 92.65% | 36.9s
+[baseline] epoch  26/30 | loss 0.5431 | train 98.36% | test 93.14% | 36.9s
+[baseline] epoch  27/30 | loss 0.5301 | train 98.97% | test 93.42% | 37.0s
+[baseline] epoch  28/30 | loss 0.5226 | train 99.27% | test 93.65% | 37.0s
+[baseline] epoch  29/30 | loss 0.5173 | train 99.49% | test 93.69% | 37.0s
+[baseline] epoch  30/30 | loss 0.5149 | train 99.60% | test 93.73% | 37.0s
+[baseline] final FP32 test accuracy = 93.73%  -> saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_fp32.pth
+---- 1. Train FP32 baseline finished in 1,147s
+
+==== 2. Post-Training Quantization ====
+[PTQ] backend = onednn
+[PTQ] qconfig = QConfig(activation=functools.partial(<class 'torch.ao.quantization.observer.HistogramObserver'>, reduce_range=False){}, weight=functools.partial(<class 'torch.ao.quantization.observer.PerChannelMinMaxObserver'>, dtype=torch.qint8, qscheme=torch.per_channel_symmetric){})
+[calibration] batch 5/20 (500 images)
+[calibration] batch 10/20 (1000 images)
+[calibration] batch 15/20 (1500 images)
+[calibration] batch 20/20 (2000 images)
+[calibration] done: 2000 images in 6.8s
+BasicBlock(
+  (conv1): QuantizedConvReLU2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.006427675019949675, zero_point=0, padding=(1, 1))
+  (bn1): Identity()
+  (relu1): Identity()
+  (conv2): QuantizedConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.01564864069223404, zero_point=147, padding=(1, 1))
+  (bn2): Identity()
+  (relu2): ReLU(inplace=True)
+  (skip_add): QFunctional(
+    scale=0.01815776526927948, zero_point=120
+    (activation_post_process): Identity()
+  )
+)
+[PTQ] saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_ptq_int8.pt (10.79 MB)  vs FP32 42.70 MB
+[PTQ] INT8 test accuracy (reloaded TorchScript) = 93.75%
+---- 2. Post-Training Quantization finished in 16s
+
+==== 3. Quantization-Aware Training ====
+[QAT] fake-quant inserted, example block:
+ BasicBlock(
+  (conv1): ConvBnReLU2d(
+    64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+    (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (weight_fake_quant): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.qint8, quant_min=-128, quant_max=127, qscheme=torch.per_channel_symmetric, reduce_range=False
+      (activation_post_process): MovingAveragePerChannelMinMaxObserver(min_val=tensor([]), max_val=tensor([]))
+    )
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=255, qscheme=torch.per_tensor_affine, reduce_range=False
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+  (bn1): Identity()
+  (relu1): Identity()
+  (conv2): ConvBn2d(
+    64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+    (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (weight_fake_quant): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.qint8, quant_min=-128, quant_max=127, qscheme=torch.per_channel_symmetric, reduce_range=False
+      (activation_post_process): MovingAveragePerChannelMinMaxObserver(min_val=tensor([]), max_val=tensor([]))
+    )
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=255, qscheme=torch.per_tensor_affine, reduce_range=False
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+  (bn2): Identity()
+  (relu2): ReLU(inplace=True)
+  (skip_add): FloatFunctional(
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=255, qscheme=torch.per_tensor_affine, reduce_range=False
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+)
+[QAT] epoch 1/5 | loss 0.5191 | train 99.45% | fake-quant test 93.86% | 30.1s
+[QAT] epoch 2/5 | loss 0.5175 | train 99.51% | fake-quant test 93.75% | 25.3s
+[QAT] epoch 3/5 | loss 0.5126 | train 99.66% | fake-quant test 93.60% | 26.8s
+[QAT] epoch 4/5 | loss 0.5110 | train 99.71% | fake-quant test 93.88% | 25.1s
+[QAT] epoch 5/5 | loss 0.5107 | train 99.73% | fake-quant test 93.84% | 25.0s
+[QAT] saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_qat_int8.pt (10.79 MB)
+[QAT] INT8 test accuracy (reloaded TorchScript) = 93.83%
+---- 3. Quantization-Aware Training finished in 142s
+
+==== 4. Unstructured pruning ====
+[unstructured] baseline accuracy 93.73%
+[unstructured] per-iteration amount = 0.3313 of remaining weights
+[unstructured] iter 1: sparsity 33.13% | acc before FT 93.70%
+[unstructured it1] epoch   1/2 | loss 0.5179 | train 99.48% | test 93.35% | 14.6s
+[unstructured it1] epoch   2/2 | loss 0.5154 | train 99.58% | test 93.78% | 9.3s
+[unstructured] iter 2: sparsity 55.28% | acc before FT 93.57%
+[unstructured it2] epoch   1/2 | loss 0.5163 | train 99.52% | test 93.57% | 9.4s
+[unstructured it2] epoch   2/2 | loss 0.5134 | train 99.66% | test 93.53% | 9.3s
+[unstructured] iter 3: sparsity 70.09% | acc before FT 92.81%
+[unstructured it3] epoch   1/2 | loss 0.5156 | train 99.61% | test 93.55% | 9.3s
+[unstructured it3] epoch   2/2 | loss 0.5130 | train 99.68% | test 93.87% | 9.3s
+[unstructured] iter 4: sparsity 80.00% | acc before FT 90.27%
+[unstructured it4] epoch   1/5 | loss 0.5183 | train 99.62% | test 93.75% | 9.4s
+[unstructured it4] epoch   2/5 | loss 0.5150 | train 99.64% | test 93.76% | 9.3s
+[unstructured it4] epoch   3/5 | loss 0.5127 | train 99.72% | test 93.89% | 9.3s
+[unstructured it4] epoch   4/5 | loss 0.5104 | train 99.81% | test 93.93% | 9.3s
+[unstructured it4] epoch   5/5 | loss 0.5099 | train 99.82% | test 93.85% | 9.3s
+[unstructured] final global sparsity (conv+fc) 80.00% | params 11,173,962 non-zero 2,242,480
+[unstructured] dense ckpt 42.70 MB | sparse ckpt 10.19 MB
+---- 4. Unstructured pruning finished in 123s
+
+==== 5. Structured channel pruning ====
+[structured] reconstruction check: max |masked - reconstructed| = 4.77e-07
+[structured] mid channels: [32, 32, 64, 64, 128, 128, 256, 256]
+[structured] params 11,173,962 -> 5,679,306 (49.2% fewer) | acc 93.73% -> 34.56% before fine-tune
+[structured FT] epoch   1/10 | loss 0.6441 | train 93.66% | test 89.43% | 14.8s
+[structured FT] epoch   2/10 | loss 0.6110 | train 95.23% | test 89.72% | 6.1s
+[structured FT] epoch   3/10 | loss 0.5930 | train 96.02% | test 90.95% | 6.2s
+[structured FT] epoch   4/10 | loss 0.5776 | train 96.77% | test 91.25% | 6.1s
+[structured FT] epoch   5/10 | loss 0.5591 | train 97.60% | test 91.91% | 6.2s
+[structured FT] epoch   6/10 | loss 0.5417 | train 98.40% | test 92.51% | 6.2s
+[structured FT] epoch   7/10 | loss 0.5306 | train 98.88% | test 93.07% | 6.2s
+[structured FT] epoch   8/10 | loss 0.5228 | train 99.26% | test 93.06% | 6.1s
+[structured FT] epoch   9/10 | loss 0.5188 | train 99.42% | test 93.26% | 6.1s
+[structured FT] epoch  10/10 | loss 0.5163 | train 99.55% | test 93.19% | 6.2s
+[structured] after fine-tune 93.19% -> saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_structured_pruned.pth (21.73 MB vs 42.70 MB)
+---- 5. Structured channel pruning finished in 79s
+
+==== 6. ONNX export ====
+[onnx] fp32.onnx           42.62 MB
+[onnx] unstructured.onnx   42.62 MB
+[onnx] structured.onnx     21.66 MB
+[onnx] QAT fake-quant swap check: max diff 2.25e-02
+[onnx] qat.onnx            42.68 MB
+[onnx] quantized 20 conv biases to INT32
+[onnx] folded 21 weight QuantizeLinear nodes into INT8 initializers -> qat.onnx 10.77 MB
+[onnx] ptq.onnx            10.77 MB (ORT static INT8)
+[onnx] all models exported to D:\Uni\SEM 7\Edge\Assignment\3\models\onnx
+---- 6. ONNX export finished in 13s
+
+==== 7. PyTorch benchmark (5 models) ====
+CPU: AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD | threads: 8 | torch 2.10.0+cu128 | quant engine onednn
+
+=== Q1: quantization ===
+  FP32 baseline        acc  93.73% | size  42.70 MB | bs1   5.92 ms |    438.1 img/s
+  PTQ INT8             acc  93.75% | size  10.79 MB | bs1   1.59 ms |   2104.5 img/s
+  QAT INT8             acc  93.83% | size  10.79 MB | bs1   1.55 ms |   2118.9 img/s
+
+=== Q2: pruning ===
+  Unstructured-pruned  acc  93.85% | size  42.70 MB | bs1   5.94 ms |    444.1 img/s
+  Structured-pruned    acc  93.19% | size  21.73 MB | bs1   3.61 ms |    665.0 img/s
+
+=== All five models ===
+plot -> D:\Uni\SEM 7\Edge\Assignment\3\results\benchmark_plots.png
+
+              model  accuracy_pct  size_mb  compression_x  latency_bs1_ms  speedup_bs1_x  throughput_img_s  agreement_with_fp32_pct
+      FP32 baseline         93.73   42.701           1.00           5.922           1.00             438.1                   100.00
+           PTQ INT8         93.75   10.791           3.96           1.591           3.72            2104.5                    99.74
+           QAT INT8         93.83   10.791           3.96           1.550           3.82            2118.9                    99.10
+Unstructured-pruned         93.85   42.703           1.00           5.939           1.00             444.1                    97.74
+  Structured-pruned         93.19   21.735           1.96           3.613           1.64             665.0                    95.85
+
+CSV files written to D:\Uni\SEM 7\Edge\Assignment\3\results
+---- 7. PyTorch benchmark (5 models) finished in 85s
+
+==== 8. ONNX Runtime CPU benchmark ====
+onnxruntime 1.31.0 | providers ['AzureExecutionProvider', 'CPUExecutionProvider']
+  fp32          acc  93.73% |  42.62 MB | bs1  2.120 ms |    716.2 img/s
+  ptq           acc  93.73% |  10.77 MB | bs1  0.598 ms |   2987.5 img/s
+  qat           acc  93.83% |  10.77 MB | bs1  0.670 ms |   2078.2 img/s
+  unstructured  acc  93.85% |  42.62 MB | bs1  2.125 ms |    717.5 img/s
+  structured    acc  93.19% |  21.66 MB | bs1  0.876 ms |   1310.5 img/s
+-> D:\Uni\SEM 7\Edge\Assignment\3\results\onnx_cpu_benchmark.csv
+---- 8. ONNX Runtime CPU benchmark finished in 46s
+
+==== 9. Inference demo ====
+saved 10 test images to D:\Uni\SEM 7\Edge\Assignment\3\samples
+
+  # ground truth fp32          ptq           qat           unstructured  structured   
+--------------------------------------------------------------------------------------
+  0 cat          cat           cat           cat           cat           cat          
+  1 ship         ship          ship          ship          ship          ship         
+  2 ship         ship          ship          ship          ship          ship         
+  3 airplane     airplane      airplane      airplane      airplane      airplane     
+  4 frog         frog          frog          frog          frog          frog         
+  5 frog         frog          frog          frog          frog          frog         
+  6 automobile   automobile    automobile    automobile    automobile    automobile   
+  7 frog         frog          frog          frog          frog          frog         
+  8 cat          cat           cat           cat           cat           cat          
+  9 automobile   automobile    automobile    automobile    automobile    automobile   
+(X = misclassified)
+---- 9. Inference demo finished in 4s
+
+All done. Results in ./results, models in ./models

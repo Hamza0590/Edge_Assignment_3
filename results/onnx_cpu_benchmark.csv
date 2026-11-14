@@ -1,0 +1,6 @@
+model,onnx_file,size_mb,accuracy_pct,latency_bs1_ms,latency_bs1_p95_ms,throughput_img_s,agreement_with_fp32_pct
+fp32,fp32.onnx,42.616,93.73,2.12,2.357,716.2,100.0
+ptq,ptq.onnx,10.768,93.73,0.598,0.77,2987.5,99.68
+qat,qat.onnx,10.774,93.83,0.67,0.847,2078.2,99.02
+unstructured,unstructured.onnx,42.616,93.85,2.125,2.321,717.5,97.74
+structured,structured.onnx,21.659,93.19,0.876,1.039,1310.5,95.85

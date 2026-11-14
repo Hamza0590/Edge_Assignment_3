@@ -1,0 +1,9 @@
+[onnx] fp32.onnx           42.62 MB
+[onnx] unstructured.onnx   42.62 MB
+[onnx] structured.onnx     21.66 MB
+[onnx] QAT fake-quant swap check: max diff 2.25e-02
+[onnx] qat.onnx            42.68 MB
+[onnx] quantized 20 conv biases to INT32
+[onnx] folded 21 weight QuantizeLinear nodes into INT8 initializers -> qat.onnx 10.77 MB
+[onnx] ptq.onnx            10.77 MB (ORT static INT8)
+[onnx] all models exported to D:\Uni\SEM 7\Edge\Assignment\3\models\onnx

@@ -1,0 +1,14 @@
+[structured] reconstruction check: max |masked - reconstructed| = 4.77e-07
+[structured] mid channels: [32, 32, 64, 64, 128, 128, 256, 256]
+[structured] params 11,173,962 -> 5,679,306 (49.2% fewer) | acc 93.73% -> 34.56% before fine-tune
+[structured FT] epoch   1/10 | loss 0.6441 | train 93.66% | test 89.43% | 14.8s
+[structured FT] epoch   2/10 | loss 0.6110 | train 95.23% | test 89.72% | 6.1s
+[structured FT] epoch   3/10 | loss 0.5930 | train 96.02% | test 90.95% | 6.2s
+[structured FT] epoch   4/10 | loss 0.5776 | train 96.77% | test 91.25% | 6.1s
+[structured FT] epoch   5/10 | loss 0.5591 | train 97.60% | test 91.91% | 6.2s
+[structured FT] epoch   6/10 | loss 0.5417 | train 98.40% | test 92.51% | 6.2s
+[structured FT] epoch   7/10 | loss 0.5306 | train 98.88% | test 93.07% | 6.2s
+[structured FT] epoch   8/10 | loss 0.5228 | train 99.26% | test 93.06% | 6.1s
+[structured FT] epoch   9/10 | loss 0.5188 | train 99.42% | test 93.26% | 6.1s
+[structured FT] epoch  10/10 | loss 0.5163 | train 99.55% | test 93.19% | 6.2s
+[structured] after fine-tune 93.19% -> saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_structured_pruned.pth (21.73 MB vs 42.70 MB)

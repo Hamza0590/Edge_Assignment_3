@@ -1,0 +1,4 @@
+model,key,accuracy_pct,checkpoint,size_mb,gzip_size_mb,latency_bs1_ms,latency_bs1_p95_ms,throughput_img_s,testset_time_s,params,nonzero_params,sparsity_pct,macs_m,effective_macs_m,weight_dtype,accuracy_drop_pct,compression_x,speedup_bs1_x,speedup_throughput_x,agreement_with_fp32_pct
+FP32 baseline,fp32,93.73,resnet18_fp32.pth,42.701,39.523,5.922,6.618,438.1,22.83,11173962,11173962.0,0.0,555.4,555.4,,0.0,1.0,1.0,1.0,100.0
+PTQ INT8,ptq,93.75,resnet18_ptq_int8.pt,10.791,9.652,1.591,1.876,2104.5,4.75,11173962,,,,,int8,-0.02,3.96,3.72,4.8,99.74
+QAT INT8,qat,93.83,resnet18_qat_int8.pt,10.791,9.65,1.55,1.842,2118.9,4.72,11173962,,,,,int8,-0.1,3.96,3.82,4.84,99.1

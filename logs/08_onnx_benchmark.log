@@ -1,0 +1,7 @@
+onnxruntime 1.31.0 | providers ['AzureExecutionProvider', 'CPUExecutionProvider']
+  fp32          acc  93.73% |  42.62 MB | bs1  2.120 ms |    716.2 img/s
+  ptq           acc  93.73% |  10.77 MB | bs1  0.598 ms |   2987.5 img/s
+  qat           acc  93.83% |  10.77 MB | bs1  0.670 ms |   2078.2 img/s
+  unstructured  acc  93.85% |  42.62 MB | bs1  2.125 ms |    717.5 img/s
+  structured    acc  93.19% |  21.66 MB | bs1  0.876 ms |   1310.5 img/s
+-> D:\Uni\SEM 7\Edge\Assignment\3\results\onnx_cpu_benchmark.csv

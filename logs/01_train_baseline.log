@@ -1,0 +1,32 @@
+[baseline] device = cuda
+[baseline] epoch   1/30 | loss 1.6498 | train 46.35% | test 56.28% | 62.7s
+[baseline] epoch   2/30 | loss 1.2559 | train 66.39% | test 54.14% | 37.1s
+[baseline] epoch   3/30 | loss 1.0904 | train 74.17% | test 69.06% | 37.1s
+[baseline] epoch   4/30 | loss 0.9914 | train 78.94% | test 64.28% | 37.0s
+[baseline] epoch   5/30 | loss 0.9279 | train 81.93% | test 76.71% | 37.0s
+[baseline] epoch   6/30 | loss 0.8819 | train 83.85% | test 68.79% | 37.0s
+[baseline] epoch   7/30 | loss 0.8403 | train 85.51% | test 69.18% | 37.1s
+[baseline] epoch   8/30 | loss 0.8066 | train 86.95% | test 78.31% | 36.9s
+[baseline] epoch   9/30 | loss 0.7790 | train 88.18% | test 79.87% | 36.9s
+[baseline] epoch  10/30 | loss 0.7640 | train 88.76% | test 83.84% | 36.9s
+[baseline] epoch  11/30 | loss 0.7433 | train 89.75% | test 81.05% | 36.9s
+[baseline] epoch  12/30 | loss 0.7244 | train 90.51% | test 81.65% | 36.9s
+[baseline] epoch  13/30 | loss 0.7160 | train 90.77% | test 86.35% | 36.9s
+[baseline] epoch  14/30 | loss 0.6983 | train 91.52% | test 83.45% | 36.9s
+[baseline] epoch  15/30 | loss 0.6880 | train 91.89% | test 86.07% | 36.9s
+[baseline] epoch  16/30 | loss 0.6757 | train 92.48% | test 82.06% | 36.9s
+[baseline] epoch  17/30 | loss 0.6686 | train 92.68% | test 88.19% | 36.9s
+[baseline] epoch  18/30 | loss 0.6553 | train 93.33% | test 88.29% | 36.9s
+[baseline] epoch  19/30 | loss 0.6433 | train 93.82% | test 88.00% | 36.9s
+[baseline] epoch  20/30 | loss 0.6295 | train 94.52% | test 89.97% | 36.9s
+[baseline] epoch  21/30 | loss 0.6199 | train 94.88% | test 88.02% | 36.9s
+[baseline] epoch  22/30 | loss 0.6026 | train 95.64% | test 89.85% | 36.9s
+[baseline] epoch  23/30 | loss 0.5936 | train 96.05% | test 90.70% | 37.0s
+[baseline] epoch  24/30 | loss 0.5762 | train 96.83% | test 91.54% | 36.9s
+[baseline] epoch  25/30 | loss 0.5577 | train 97.77% | test 92.65% | 36.9s
+[baseline] epoch  26/30 | loss 0.5431 | train 98.36% | test 93.14% | 36.9s
+[baseline] epoch  27/30 | loss 0.5301 | train 98.97% | test 93.42% | 37.0s
+[baseline] epoch  28/30 | loss 0.5226 | train 99.27% | test 93.65% | 37.0s
+[baseline] epoch  29/30 | loss 0.5173 | train 99.49% | test 93.69% | 37.0s
+[baseline] epoch  30/30 | loss 0.5149 | train 99.60% | test 93.73% | 37.0s
+[baseline] final FP32 test accuracy = 93.73%  -> saved D:\Uni\SEM 7\Edge\Assignment\3\models\resnet18_fp32.pth

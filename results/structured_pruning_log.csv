@@ -1,0 +1,2 @@
+baseline_acc,ratio,params_before,params_after,acc_after_prune,acc_after_finetune
+93.73000264167786,0.5,11173962,5679306,34.56000089645386,93.19000244140625

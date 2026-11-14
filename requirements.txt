@@ -1,0 +1,13 @@
+# Tested with Python 3.13.5 on Windows 11, NVIDIA RTX 5060 Ti (CUDA 12.8)
+# Install PyTorch matching your CUDA first, e.g.:
+#   pip install torch==2.10.0 torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cu128
+torch>=2.4
+torchvision>=0.19
+numpy>=1.26
+pandas>=2.0
+pillow>=10.0
+matplotlib>=3.8
+pyarrow>=14.0        # read the CIFAR-10 parquet mirror
+onnx>=1.16
+onnxruntime>=1.18
+onnxscript>=0.1      # needed by torch.onnx in recent PyTorch versions
